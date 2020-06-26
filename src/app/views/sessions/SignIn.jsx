@@ -31,8 +31,8 @@ const styles = theme => ({
 
 class SignIn extends Component {
   state = {
-    email: "ceu-admin",
-    password: "12345",
+    email: "testaccount@gmail.com",
+    password: "123456",
     agreement: ""
   };
   handleChange = event => {
@@ -109,7 +109,7 @@ class SignIn extends Component {
                           />
                         )}
                       </div>
-                      
+
                     </div>
                     <Button
                       className="text-primary"

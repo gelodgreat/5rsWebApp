@@ -30,7 +30,7 @@ class AuthGuard extends Component {
     return nextState.authenticated !== this.state.authenticated;
   }
 
-  static getDerivedStateFromProps(props, state) {    
+  static getDerivedStateFromProps(props, state) {
     const { location, user } = props;
     const { pathname } = location;
     const matched = state.routes.find(r => r.path === pathname);
@@ -44,14 +44,17 @@ class AuthGuard extends Component {
     };
   }
 
-  redirectRoute(props) {
+  async redirectRoute(props) {
     const { location, history } = props;
     const { pathname } = location;
+    const token = await localStorage.getItem('token')
+    if (!token) {
+      history.push({
+        pathname: "/session/signin",
+        state: { redirectUrl: pathname }
+      });
+    }
 
-    history.push({
-      pathname: "/session/signin",
-      state: { redirectUrl: pathname }
-    });
   }
 
   render() {

@@ -1,5 +1,7 @@
 import axios from "axios";
 import localStorageService from "./localStorageService";
+import Connection from "../../common/Connection";
+const connection = new Connection();
 
 class JwtAuthService {
 
@@ -18,19 +20,23 @@ class JwtAuthService {
   // Your server will return user object & a Token
   // User should have role property
   // You can define roles in app/auth/authRoles.js
-  loginWithEmailAndPassword = (email, password) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.user);
-      }, 1000);
-    }).then(data => {
-      // Login successful
-      // Save token
-      this.setSession(data.token);
+  loginWithEmailAndPassword = async (email, password) => {
+    try {
+      const user = await connection.login('api/v1/auth/login', {
+        "email": email,
+        "password": password
+      })
+
+      console.log(user.data)
+      localStorage.setItem('token', user.data.token)
+      this.setSession(user.data.token);
       // Set user
-      this.setUser(data);
-      return data;
-    });
+      this.setUser(user.data);
+      return user.data;
+    } catch (error) {
+      console.log(error)
+    }
+
   };
 
   // You need to send http requst with existing token to your server to check token is valid
@@ -65,7 +71,7 @@ class JwtAuthService {
   };
 
   // Save user to localstorage
-  setUser = (user) => {    
+  setUser = (user) => {
     localStorageService.setItem("auth_user", user);
   }
   // Remove user from localstorage
