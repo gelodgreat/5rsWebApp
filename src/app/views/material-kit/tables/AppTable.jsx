@@ -102,6 +102,12 @@ const AppTable = () => {
   const getReact = async () => {
     try {
       const react = await connection.get('api/v1/react')
+      setColumns(
+        [{ title: "Department", field: "department.department", editable: 'never', },
+        { title: "Description", field: "description", },
+        { title: "Rating", field: "rating", editable: 'never', },
+        { title: "Created At", field: "createdAt", editable: 'never', }
+        ])
       setData(react.data.data)
       console.log(react.data.data)
     } catch (error) {
