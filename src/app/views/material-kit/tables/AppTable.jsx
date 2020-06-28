@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import SimpleTable from "./SimpleTable";
-import PaginationTable from "./PaginationTable";
 import { Breadcrumb, SimpleCard } from "matx";
 import MaterialTable from "material-table";
 import Connection from "../../../../common/Connection";
@@ -46,7 +44,6 @@ const AppTable = () => {
       const reports = await connection.get('api/v1/report')
       setColumns([{ title: "Category", field: "category", editable: 'never', },
       { title: "Description", field: "description", },
-      { title: "Photo", field: "photo", editable: 'never', },
       { title: "Created At", field: "createdAt", editable: 'never', }])
       setData(reports.data.data);
       console.log(reports.data.data)
@@ -61,7 +58,6 @@ const AppTable = () => {
       setColumns(
         [{ title: "Category", field: "category", editable: 'never', },
         { title: "Description", field: "description", },
-        { title: "Photo", field: "photo", editable: 'never', },
         { title: "Created At", field: "createdAt", editable: 'never', }]
       )
       setData(repair.data.data)
@@ -76,7 +72,6 @@ const AppTable = () => {
       const recommend = await connection.get('api/v1/recommend')
       setColumns([
         { title: "Description", field: "description", },
-        { title: "Photo", field: "photo", editable: 'never', },
         { title: "Subject", field: "subject", editable: 'never', },
         { title: "Type", field: "type", editable: 'never', },
         { title: "Created At", field: "createdAt", editable: 'never', }
@@ -94,7 +89,6 @@ const AppTable = () => {
       setColumns(
         [{ title: "Category", field: "category", editable: 'never', },
         { title: "Description", field: "description", },
-        { title: "Photo", field: "photo", editable: 'never', },
         { title: "Subject", field: "subject", editable: 'never', },
         { title: "Created At", field: "createdAt", editable: 'never', }
         ])
@@ -143,6 +137,8 @@ const AppTable = () => {
                 <>
                   <p>User: {rowData.user.name}</p>
                   <p>Email: {rowData.user.email}</p>
+                  {rowData.photo ? <img style={{ width: 100, height: 100 }} src={rowData.photo} alt={rowData.photo} /> : null}
+
                 </>
               )
             }}
