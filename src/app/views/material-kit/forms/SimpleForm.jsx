@@ -1,13 +1,9 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import {
   Button,
   Icon,
   Grid,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  Checkbox
 } from "@material-ui/core";
 import {
   MuiPickersUtilsProvider,
@@ -18,16 +14,8 @@ import DateFnsUtils from "@date-io/date-fns";
 
 class SimpleForm extends Component {
   state = {
-    username: "",
-    firstName: "",
-    email: "",
-    date: new Date(),
-    creditCard: "",
-    mobile: "",
-    password: "",
-    confirmPassword: "",
-    gender: "",
-    agreement: ""
+    Building: "",
+    Department: "",
   };
 
   componentDidMount() {
@@ -55,23 +43,11 @@ class SimpleForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleDateChange = date => {
-    console.log(date);
-
-    this.setState({ date });
-  };
 
   render() {
     let {
-      username,
-      firstName,
-      creditCard,
-      mobile,
-      password,
-      confirmPassword,
-      gender,
-      date,
-      email
+      Building,
+      Department,
     } = this.state;
     return (
       <div>
@@ -84,11 +60,11 @@ class SimpleForm extends Component {
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <TextValidator
                 className="mb-16 w-100"
-                label="Username (Min length 4, Max length 9)"
+                label="Building"
                 onChange={this.handleChange}
                 type="text"
-                name="username"
-                value={username}
+                name="Building"
+                value={Building}
                 validators={[
                   "required",
                   "minStringLength: 4",
@@ -96,129 +72,35 @@ class SimpleForm extends Component {
                 ]}
                 errorMessages={["this field is required"]}
               />
+              <br></br>
+              <br></br>
               <TextValidator
                 className="mb-16 w-100"
-                label="First Name"
+                label="Department"
                 onChange={this.handleChange}
                 type="text"
-                name="firstName"
-                value={firstName}
+                name="Department"
+                value={Department}
                 validators={["required"]}
                 errorMessages={["this field is required"]}
               />
-              <TextValidator
-                className="mb-16 w-100"
-                label="Email"
-                onChange={this.handleChange}
-                type="email"
-                name="email"
-                value={email}
-                validators={["required", "isEmail"]}
-                errorMessages={["this field is required", "email is not valid"]}
-              />
-
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  className="mb-16 w-100"
-                  margin="none"
-                  id="mui-pickers-date"
-                  label="Date picker"
-                  inputVariant="standard"
-                  type="text"
-                  autoOk={true}
-                  value={date}
-                  onChange={this.handleDateChange}
-                  KeyboardButtonProps={{
-                    "aria-label": "change date"
-                  }}
-                />
-              </MuiPickersUtilsProvider>
-              <TextValidator
-                className="mb-32 w-100"
-                label="Credit Card"
-                onChange={this.handleChange}
-                type="number"
-                name="creditCard"
-                value={creditCard}
-                validators={[
-                  "required",
-                  "minStringLength:16",
-                  "maxStringLength: 16"
-                ]}
-                errorMessages={["this field is required"]}
-              />
             </Grid>
-
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <TextValidator
-                className="mb-16 w-100"
-                label="Mobile Nubmer"
-                onChange={this.handleChange}
-                type="text"
-                name="mobile"
-                value={mobile}
-                validators={["required"]}
-                errorMessages={["this field is required"]}
-              />
-              <TextValidator
-                className="mb-16 w-100"
-                label="Password"
-                onChange={this.handleChange}
-                name="password"
-                type="password"
-                value={password}
-                validators={["required"]}
-                errorMessages={["this field is required"]}
-              />
-              <TextValidator
-                className="mb-16 w-100"
-                label="Confirm Password"
-                onChange={this.handleChange}
-                name="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                validators={["required", "isPasswordMatch"]}
-                errorMessages={[
-                  "this field is required",
-                  "password didn't match"
-                ]}
-              />
-              <RadioGroup
-                className="mb-16"
-                value={gender}
-                name="gender"
-                onChange={this.handleChange}
-                row
-              >
-                <FormControlLabel
-                  value="Male"
-                  control={<Radio color="secondary" />}
-                  label="Male"
-                  labelPlacement="end"
-                />
-                <FormControlLabel
-                  value="Female"
-                  control={<Radio color="secondary" />}
-                  label="Female"
-                  labelPlacement="end"
-                />
-                <FormControlLabel
-                  value="Others"
-                  control={<Radio color="secondary" />}
-                  label="Others"
-                  labelPlacement="end"
-                />
-              </RadioGroup>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="I have read and agree to the terms of service."
-              />
-            </Grid>
-          </Grid>
-          <Button color="primary" variant="contained" type="submit">
-            <Icon>send</Icon>
-            <span className="pl-8 capitalize">Send</span>
+            <br></br>
+            <Button color="primary" variant="contained" type="submit">
+              <Icon>add_box</Icon>
+            <span className="pl-8 capitalize">Add</span>
           </Button>
+  
+          <br></br>
+          <br></br>
+          <br></br>
+            <Button color="primary" variant="contained" type="submit">
+              <Icon>add_box</Icon>
+            <span className="pl-8 capitalize">Add</span>
+          </Button>
+          </Grid>
+          </Grid>
         </ValidatorForm>
       </div>
     );
