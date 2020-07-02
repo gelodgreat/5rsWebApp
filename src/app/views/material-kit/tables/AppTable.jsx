@@ -42,9 +42,12 @@ const AppTable = () => {
   const getReports = async () => {
     try {
       const reports = await connection.get('api/v1/report')
-      setColumns([{ title: "Category", field: "category", editable: 'never', },
-      { title: "Description", field: "description", },
-      { title: "Created At", field: "createdAt", editable: 'never', }])
+      setColumns(
+        [{ title: "Category", field: "category", editable: 'never', },
+        { title: "Subject", field: "subject", editable: 'never', },
+        { title: "Description", field: "description", },
+        { title: "Created At", field: "createdAt", editable: 'never', }
+        ])
       setData(reports.data.data);
       console.log(reports.data.data)
     } catch (error) {
@@ -57,9 +60,10 @@ const AppTable = () => {
       const repair = await connection.get('api/v1/repair')
       setColumns(
         [{ title: "Category", field: "category", editable: 'never', },
+        { title: "Subject", field: "subject", editable: 'never', },
         { title: "Description", field: "description", },
-        { title: "Created At", field: "createdAt", editable: 'never', }]
-      )
+        { title: "Created At", field: "createdAt", editable: 'never', }
+        ])
       setData(repair.data.data)
       console.log(repair.data.data)
     } catch (error) {
@@ -70,12 +74,12 @@ const AppTable = () => {
   const getRecommend = async () => {
     try {
       const recommend = await connection.get('api/v1/recommend')
-      setColumns([
-        { title: "Description", field: "description", },
+      setColumns(
+        [{ title: "Category", field: "category", editable: 'never', },
         { title: "Subject", field: "subject", editable: 'never', },
-        { title: "Type", field: "type", editable: 'never', },
+        { title: "Description", field: "description", },
         { title: "Created At", field: "createdAt", editable: 'never', }
-      ])
+        ])
       setData(recommend.data.data)
       console.log(recommend.data.data)
     } catch (error) {
@@ -88,8 +92,8 @@ const AppTable = () => {
       const recognize = await connection.get('api/v1/recognize')
       setColumns(
         [{ title: "Category", field: "category", editable: 'never', },
-        { title: "Description", field: "description", },
         { title: "Subject", field: "subject", editable: 'never', },
+        { title: "Description", field: "description", },
         { title: "Created At", field: "createdAt", editable: 'never', }
         ])
       setData(recognize.data.data)
