@@ -1,6 +1,6 @@
 export const navigations = [
   {
-    name: "Dashboard",
+    name: "Registration",
     path: "/dashboard/analytics",
     icon: "dashboard"
   },
@@ -35,5 +35,11 @@ export const navigations = [
     icon: "description",
     path: "/material/table5",
   },
+  {
+    name: "CUSTOM",
+    icon: "description",
+    path: "/form",
+  },
+
   
 ];
