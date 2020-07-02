@@ -1,65 +1,169 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import {
+  Button,
+  Icon,
   Grid,
-  Card
+  Card,
+  RadioGroup,
+  FormControlLabel,
+  Checkbox
 } from "@material-ui/core";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
 
-import DoughnutChart from "../charts/echarts/Doughnut";
+class Registration extends Component {
+  state = {
+    FirstName: "",
+    LastName: "",
+    EmailAddress: "",
+    password: "",
+    confirmPassword: "",
 
-import ModifiedAreaChart from "./shared/ModifiedAreaChart";
-import StatCards from "./shared/StatCards";
-import TableCard from "./shared/TableCard";
-import RowCards from "./shared/RowCards";
-import StatCards2 from "./shared/StatCards2";
-import UpgradeCard from "./shared/UpgradeCard";
-import Campaigns from "./shared/Campaigns";
-import { withStyles } from "@material-ui/styles";
+  };
 
-class Dashboard1 extends Component {
-  state = {};
+  componentDidMount() {
+    // custom rule will have name 'isPasswordMatch'
+    ValidatorForm.addValidationRule("isPasswordMatch", value => {
+      if (value !== this.state.password) {
+        return false;
+      }
+      return true;
+    });
+  }
+
+  componentWillUnmount() {
+    // remove rule when it is not needed
+    ValidatorForm.removeValidationRule("isPasswordMatch");
+  }
+
+  handleSubmit = event => {
+    console.log("submitted");
+    console.log(event);
+  };
+
+  handleChange = event => {
+    event.persist();
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleDateChange = date => {
+    console.log(date);
+
+    this.setState({ date });
+  };
+  constructor(props) {
+    super(props);
+     this.state = { pictures: [] };
+     this.onDrop = this.onDrop.bind(this);
+}
+
+onDrop(picture) {
+    this.setState({
+        pictures: this.state.pictures.concat(picture),
+    });
+}
 
   render() {
-    let { theme } = this.props;
-
+    let {
+      FirstName,
+      LastName,
+      creditCard,
+      mobile,
+      password,
+      confirmPassword,
+      gender,
+      date,
+      EmailAddress
+    } = this.state;
     return (
-      <Fragment>
-
-        <div className="analytics m-sm-30 mt--80">
-        
-          <Grid container spacing={3}>
-            <Grid item lg={8} md={8} sm={12} xs={12}>
-              <StatCards theme={theme}/>
-              {'\n'}
-              {/* Top Selling Products */}
-              
-
-              <StatCards2/>
-
-
-            </Grid>
-
-            <Grid item lg={4} md={4} sm={12} xs={12}>
-              <Card className="px-24 py-16 mb-16">
-                <div className="card-title">Status Summary</div>
-                <div className="card-subtitle">Last 30 days</div>
-                <DoughnutChart
-                  height="300px"
-                  color={[
-                    theme.palette.primary.dark,
-                    theme.palette.primary.main,
-                    theme.palette.primary.light
-                  ]}
-                />
-              </Card>
-
-              
-
+      <div>
+        <ValidatorForm
+          ref="form"
+          onSubmit={this.handleSubmit}
+          onError={errors => null}
+        >
+           <Card className="px-24 py-16 mb-16">
+          <Grid container spacing={6}>
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              <TextValidator
+                className="mb-16 w-100"
+                label="First Name"
+                onChange={this.handleChange}
+                type="text"
+                name="FirstName"
+                value={FirstName}
+                validators={[
+                  "required",
+                  "minStringLength: 4",
+                  "maxStringLength: 9"
+                ]}
+                errorMessages={["this field is required"]}
+              />
+              <TextValidator
+                className="mb-16 w-100"
+                label="Last Name"
+                onChange={this.handleChange}
+                type="text"
+                name="LastName"
+                value={LastName}
+                validators={["required"]}
+                errorMessages={["this field is required"]}
+              />
+              <TextValidator
+                className="mb-16 w-100"
+                label="Email Address"
+                onChange={this.handleChange}
+                type="EmailAddress"
+                name="EmailAddress"
+                value={EmailAddress}
+                validators={["required", "isEmail"]}
+                errorMessages={["this field is required", "email is not valid"]}
+              />
+              <TextValidator
+                className="mb-16 w-100"
+                label="Password"
+                onChange={this.handleChange}
+                name="password"
+                type="password"
+                value={password}
+                validators={["required"]}
+                errorMessages={["this field is required"]}
+              />
+              <TextValidator
+                className="mb-16 w-100"
+                label="Confirm Password"
+                onChange={this.handleChange}
+                name="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                validators={["required", "isPasswordMatch"]}
+                errorMessages={[
+                  "this field is required",
+                  "password didn't match"
+                ]}
+              />
             </Grid>
           </Grid>
-        </div>
-      </Fragment>
+          <Button color="primary" variant="contained" type="submit">
+            <Icon>check</Icon>
+            <span className="pl-8 capitalize">Register</span>
+          </Button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Button color="primary" variant="contained" type="submit">
+            <Icon>close</Icon>
+            <span className="pl-8 capitalize">Cancel</span>
+          </Button>
+          </Card>
+        </ValidatorForm>
+        
+      </div>
     );
   }
 }
 
-export default withStyles({}, { withTheme: true })(Dashboard1);
+export default Registration;
