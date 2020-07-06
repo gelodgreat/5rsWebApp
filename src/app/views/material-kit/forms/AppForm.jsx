@@ -1,6 +1,5 @@
 import React from "react";
 import SimpleForm from "./SimpleForm";
-import StepperForm from "./StepperForm";
 import { Breadcrumb, SimpleCard } from "matx";
 
 const AppForm = () => {
@@ -14,13 +13,10 @@ const AppForm = () => {
           ]}
         />
       </div>
-      <SimpleCard title="Simple Form">
+      <SimpleCard title="Custom">
         <SimpleForm />
       </SimpleCard>
       <div className="py-12" />
-      <SimpleCard title="stepper form">
-        <StepperForm />
-      </SimpleCard>
     </div>
   );
 };

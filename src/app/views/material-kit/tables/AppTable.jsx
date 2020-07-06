@@ -61,8 +61,8 @@ const AppTable = () => {
         { title: "Subject", field: "subject", },
         { title: "Category", field: "category", editable: 'never', },
         { title: "Description", field: "description", },
-        { title: "Created At", field: "createdAt", editable: 'never', }]
-      )
+        { title: "Created At", field: "createdAt", editable: 'never', }
+      ])
       setData(repair.data.data)
       console.log(repair.data.data)
     } catch (error) {
@@ -76,7 +76,7 @@ const AppTable = () => {
       setColumns([
         { title: "Description", field: "description", },
         { title: "Subject", field: "subject", editable: 'never', },
-        { title: "Type", field: "type", editable: 'never', },
+        { title: "Description", field: "description", },
         { title: "Created At", field: "createdAt", editable: 'never', }
       ])
       setData(recommend.data.data)
@@ -94,6 +94,7 @@ const AppTable = () => {
         { title: "Category", field: "category", editable: 'never', },
         { title: "Description", field: "description", },
         { title: "Subject", field: "subject", editable: 'never', },
+        { title: "Description", field: "description", },
         { title: "Created At", field: "createdAt", editable: 'never', }
       ])
       setData(recognize.data.data)
