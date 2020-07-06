@@ -38,7 +38,7 @@ export const navigations = [
   {
     name: "CUSTOM",
     icon: "description",
-    path: "/form",
+    path: "/material/form",
   },
 
   
